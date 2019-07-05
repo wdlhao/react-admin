@@ -1,12 +1,14 @@
 /**
  * Created by hao.cheng on 2017/4/13.
+ * 1.withRouter:适用于编程式导航。当组件渲染时，withRouter 会将更新后的 match、location 和 history 传递给它。
  */
 import React, { Component } from 'react';
 import { Layout } from 'antd';
 import { withRouter } from 'react-router-dom';
-import routes from '../routes/config';
+import routes from '../routes/config';// obj
 import SiderMenu from './SiderMenu';
 
+console.log(routes);// {menu:[]}
 const { Sider } = Layout;
 
 class SiderCustom extends Component {
@@ -71,6 +73,14 @@ class SiderCustom extends Component {
                 style={{ overflowY: 'auto' }}
             >
                 <div className="logo" />
+                {/**
+                  SiderMenu属性分析：
+                  1.menus:为传入组件内部的参数
+                  2.mode：表示菜单排列方向，值分别为"inline/horizontal",表示该菜单排列分布或者横向排列;
+                  3.selectedKeys:如SelectedKeys={['1']}，表示默认选中的菜单项;
+                  4.openKeys:如，OpenKeys={['sub1']}，表示默认打开的菜单项;
+                  5.onOpenChange
+                */}
                 <SiderMenu
                     menus={routes.menus}
                     onClick={this.menuClick}

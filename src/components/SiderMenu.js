@@ -1,3 +1,13 @@
+/**
+ * 1级菜单和2级菜单，dom渲染流程分析：
+ *  <Menu {...props}>
+        {item.subs ? renderSubMenu(item) : renderMenuItem(item)}
+    </Menu>
+ * 主要是通过item.sub来判断是否有2级菜单，并进行相应的方法加载；
+  {item.subs.map(item => renderMenuItem(item))}，如果有2级菜单的数据，再通过map循环1级菜单方法。
+ * 
+ * 
+ */
 import React, { useState } from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
@@ -32,7 +42,8 @@ const renderSubMenu = item => (
 
 
 export default ({ menus, ...props }) => {
-    const [dragItems, setDragItems] = useState(menus);
+    // userState(menus),如何理解？
+    const [dragItems, setDragItems] = useState(menus); 
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
         const [removed] = result.splice(startIndex, 1);

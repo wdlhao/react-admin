@@ -1,3 +1,10 @@
+/**
+ * 路由导航主体文件：
+ * 1.Redirect,push??
+ * 包括通用路由，如：path="/",path="/login",path="/404" 和其他路由生成入口App组件
+ * 
+ * 
+ */
 import React from 'react';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import NotFound from './components/pages/NotFound';

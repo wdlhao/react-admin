@@ -1,12 +1,27 @@
+/**
+ * 路由嵌入文件入口及页面整体布局入口：
+   1.import Routes from './routes';
+   疑问：是否需要每次点击路由时，都需要去重新加载路由组件？是否会影响页面性能？最好的解决方法是什么？
+ * 
+ 2. export default connectAlita(['auth', 'responsive'])(App);
+    通过redux-alita所提供的组件间数据共享工具
+    import {AlitaProvider, connectAlita,setConfig } from "redux-alita";
+
+3.antd中Layout组件通过flex布局,实现了页面自适应，导入使用即可。
+   Routes auth={auth} />，直接显示路由视图位置。
+
+ * 
+ * 
+ */
 import React, { Component } from 'react';
 import Routes from './routes';
 import DocumentTitle from 'react-document-title';
-import SiderCustom from './components/SiderCustom';
-import HeaderCustom from './components/HeaderCustom';
+import SiderCustom from './components/SiderCustom'; // 左侧菜单组件
+import HeaderCustom from './components/HeaderCustom';// 顶部菜单组件
 import { Layout, notification, Icon } from 'antd';
-import { ThemePicker } from './components/widget';
+import { ThemePicker } from './components/widget';// 主题颜色选择组件
 import { connectAlita } from 'redux-alita';
-
+// console.log(Routes);
 // 
 const { Content, Footer } = Layout;
 
@@ -66,6 +81,7 @@ class App extends Component {
         const { title } = this.state;
         const { auth = { data: {} }, responsive = { data: {} } } = this.props;
         console.log(auth);
+        console.log(responsive);
         return (
             <DocumentTitle title={title}>
                 <Layout>

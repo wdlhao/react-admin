@@ -1,7 +1,20 @@
+/**
+ * 入口文件：
+ * 1.serviceWorker是什么？为什么需要它？
+ * 2.redux-alitas是什么？为什么需要它？
+ * 
+ * 页面组织和渲染过程：
+ * 1.index.js(项目入口，通过ReactDOM.render()绑定页面元素"root"并结合"redux-alita"的属性"AlitaProvider"实现状态数据的共享
+ * ，同时导入所有的全局样式文件
+ * 2.Page.js(加载通用路由和其他路由)
+ * 3.App.js(经过权限逻辑判断，加载了其他的动态路由数据。加载了整体页面布局组件。通过登录成功之后的路由定向实现
+ * 了content内容的渲染)
+ * 
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import Page from './Page';
+import Page from './Page'; // 通用路由组件
 import * as apis from './axios';
 // import { AppContainer } from 'react-hot-loader';
 import { AlitaProvider, setConfig } from 'redux-alita';

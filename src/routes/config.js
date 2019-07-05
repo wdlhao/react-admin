@@ -1,3 +1,9 @@
+/**
+ * 菜单相关的路由配置
+ * 主菜单4要素：key,title,icon,component
+ * 子菜单用subs:[]
+ * 
+ */
 export default {
     menus: [ // 菜单相关路由
         { key: '/app/dashboard/index', title: '首页', icon: 'mobile', component: 'Dashboard' },
