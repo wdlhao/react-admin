@@ -9,7 +9,8 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import NotFound from './components/pages/NotFound';
 import Login from './components/pages/Login';
-import App from './App';
+import App from './App';  // 针对path="/app",加载其他路由信息;
+console.log(App)
 
 export default () => (
     <Router>
