@@ -81,8 +81,9 @@ class App extends Component {
     render() {
         const { title } = this.state;
         const { auth = { data: {} }, responsive = { data: {} } } = this.props;
-        console.log(auth);
+        console.log(auth); 
         console.log(responsive);
+        console.log("是否每次点击路由，都会进行页面组件的整体渲染：  ");
         return (
             <DocumentTitle title={title}>
                 <Layout>
