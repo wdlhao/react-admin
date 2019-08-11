@@ -1,27 +1,15 @@
 /**
- * 路由嵌入文件入口及页面整体布局入口：
+ * 
+ 路由嵌入文件入口及页面整体布局入口：
    1.import Routes from './routes';
-     疑问：是否需要每次点击路由时，都需要去重新加载路由组件？是否会影响页面性能？最好的解决方法是什么？
+   疑问：是否需要每次点击路由时，都需要去重新加载路由组件？是否会影响页面性能？最好的解决方法是什么？
  
    2.export default connectAlita(['auth', 'responsive'])(App);
-     通过redux-alita所提供的组件间数据共享工具
-     import {AlitaProvider, connectAlita,setConfig } from "redux-alita";
-     Apis：
-        AlitaProvider：provider component for root node
-        connectAlita：connect function (just prepared mapStateToProps and mapDispatchToProps)
-        setAlitaState：set redux data fucntion (after connect, you can use it in props)
-        setConfig：register fetch functions before fetch usage
-    
-    共享变量auth和responsive是如何被赋值的呢？
-    auth的赋值方法：setAlitaState({ stateName: 'auth', data: user });
-    responsive的赋值方法：setAlitaState({ stateName: 'responsive', data: { isMobile: clientWidth <= 992 } });
-
-
+    通过redux-alita所提供的组件间数据共享工具
+    import {AlitaProvider, connectAlita,setConfig } from "redux-alita";
 
    3.antd中Layout组件通过flex布局,实现了页面自适应，导入使用即可。
-     Routes auth={auth} />，直接显示路由视图位置。
-
-
+   Routes auth={auth} />，直接显示路由视图位置。
 
  * 
  * 
@@ -86,24 +74,10 @@ class App extends Component {
     };
     render() {
         const { title } = this.state;
-        console.log(this.props);
-        /**
-         疑问：this.props中的变量auth,responsive是在哪里赋值的呢？
-         componentWillMount中赋值的。
-            auth:{
-                data: {uid: 1, permissions: Array(5), role: "系统管理员", roleType: 1, userName: "系统管理员"}
-                isFetching: false
-                timeStamp: 1562410941824
-            }
-            responsive:{
-                data: {isMobile: false}
-                isFetching: false
-                timeStamp: 1562410941825
-            }
-        */
-        const { auth = { data: {} }, responsive = { data: {} } } = this.props; // ??
-        console.log(auth);
+        const { auth = { data: {} }, responsive = { data: {} } } = this.props;
+        console.log(auth); 
         console.log(responsive);
+        console.log("是否每次点击路由，都会进行页面组件的整体渲染：  ");
         return (
             <DocumentTitle title={title}>
                 <Layout>
