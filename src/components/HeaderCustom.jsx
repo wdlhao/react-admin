@@ -1,10 +1,20 @@
 /**
- * Created by hao.cheng on 2017/4/13.
+  1.<SubMenu title={<span className="avatar">}>
+        <MenuItemGroup></MenuItemGroup>
+    </SubMenu>
+    SubMenu的title属性，可以用html;
+    MenuItemGroup:默认是做了隐藏处理的，鼠标放上去才会显示。
+
+  2.Popover，气泡卡片
+
+
+
+
  */
 import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import avater from '../style/imgs/b1.jpg';
-import SiderCustom from './SiderCustom';
+import SiderCustom from './SiderCustom'; // 左侧菜单，用于手机适配展示
 import { Menu, Icon, Layout, Badge, Popover } from 'antd';
 import { gitOauthToken, gitOauthInfo } from '../axios';
 import { queryString } from '../utils';
@@ -17,13 +27,13 @@ const MenuItemGroup = Menu.ItemGroup;
 
 class HeaderCustom extends Component {
     state = {
-        user: '',
+        // user: '',
         visible: false,
     };
     componentDidMount() {
         const QueryString = queryString();
         const _user = JSON.parse(localStorage.getItem('user')) || '测试';
-        if (!_user && QueryString.hasOwnProperty('code')) {
+        if (!_user && QueryString.hasOwnProperty('code')) { // 多余的判断
             gitOauthToken(QueryString.code).then(res => {
                 gitOauthInfo(res.access_token).then(info => {
                     this.setState({
@@ -33,6 +43,7 @@ class HeaderCustom extends Component {
                 });
             });
         } else {
+            // 得到user信息后，进行重新赋值
             this.setState({
                 user: _user
             });
@@ -50,7 +61,7 @@ class HeaderCustom extends Component {
     };
     logout = () => {
         localStorage.removeItem('user');
-        this.props.history.push('/login')
+        this.props.history.push('/login') //编程式导航，定位到登录页面；
     };
     popoverHide = () => {
         this.setState({
@@ -61,7 +72,8 @@ class HeaderCustom extends Component {
         this.setState({ visible });
     };
     render() {
-        const { responsive = { data: {} }, path } = this.props;
+        const { responsive = { data: {} }, path,auth = {} } = this.props;
+        console.log(auth);
         return (
             <Header className="custom-theme header" >
                 {
@@ -95,7 +107,7 @@ class HeaderCustom extends Component {
                     </Menu.Item>
                     <SubMenu title={<span className="avatar"><img src={avater} alt="头像" /><i className="on bottom b-white" /></span>}>
                         <MenuItemGroup title="用户中心">
-                            <Menu.Item key="setting:1">你好 - {this.props.user.userName}</Menu.Item>
+                            <Menu.Item key="setting:1">你好 - {auth.data.userName}</Menu.Item>
                             <Menu.Item key="setting:2">个人信息</Menu.Item>
                             <Menu.Item key="logout"><span onClick={this.logout}>退出登录</span></Menu.Item>
                         </MenuItemGroup>
@@ -110,4 +122,4 @@ class HeaderCustom extends Component {
     }
 }
 
-export default withRouter(connectAlita(['responsive'])(HeaderCustom));
+export default withRouter(connectAlita(['responsive','auth'])(HeaderCustom));

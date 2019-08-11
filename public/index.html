@@ -27,6 +27,7 @@
 	<link rel="stylesheet/less" type="text/css" href="./theme.less" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 	<script>
+		// 修改主题颜色，默认存入localStorage, window.less.modifyVars()改变主题颜色
 		const primaryColor = localStorage.getItem('@primary-color');
 		primaryColor && window.less.modifyVars({
 			'@primary-color': primaryColor,

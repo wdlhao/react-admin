@@ -5,9 +5,9 @@
  *    Object.keys(obj).forEach(key => {})：将object对象通过循环，处理其内部数据;
  * 
  * 2.props.match.params = { ...params }和<Component {...merge} />
- *   解释："..."为ES6解构赋值语法。
- *   props.match.params = { ...params }，将解构后的对象params赋值给另外一个对象;
- *   <Component {...merge} />：将解构后的对象merge应用于组件或者DOM时，即给组件或DOM元素传参。
+ *   解释："..."为ES6扩展运算符语法。
+ *   props.match.params = { ...params }，将扩展后的对象params赋值给另外一个对象;
+ *   <Component {...merge} />：将扩展后的对象merge应用于组件或者DOM时，即给组件或DOM元素传参。
  *  
 
  * 3.import queryString from 'query-string';
@@ -20,36 +20,45 @@
      相关：querystring.stringify、querystring.escape、querystring.unescape
      querystring.stringify用于将对象转换为URL查询字符串。
 
+  4.<Route render={(props) => {return {}} />
+    只有当路径匹配的时候会被调用,写成内联形式主要是便于渲染页面和传递参数。
+
     
  * 
  */
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
-import AllComponents from '../components'; //路由组件出口文件
+import AllComponents from '../components'; //路由组件出口文件;学习组件的组织思路;
 import routesConfig from './config'; // 路由 path配置文件
 import queryString from 'query-string';
-console.log(queryString.parse('?foo=bar&abc=xyz&name=123'))
+//console.log(queryString.parse('?foo=bar&abc=xyz&name=123'))
 
 export default class CRouter extends Component {
-    requireAuth = (permission, component) => {
-        const { auth } = this.props;
-        const { permissions } = auth.data;
-        // const { auth } = store.getState().httpData;
-        if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;
-        return component;
-    };
+    // requireAuth = (permission, component) => {
+    //     const { auth } = this.props;
+    //     const { permissions } = auth.data;
+    //     if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;
+    //     return component;
+    // };
     requireLogin = (component, permission) => {
-        const { auth } = this.props;
+        console.log(permission);// auth/testPage,点击'路由拦截'菜单
+        const { auth } = this.props; // 父组件 传递过来的值
         const { permissions } = auth.data; 
-        // admin:["auth", "auth/testPage", "auth/authPage", "auth/authPage/edit", "auth/authPage/visit"]
+        // console.log(permissions);
+        // admin:["auth", "auth/authPage", "auth/authPage/visit","auth/authPage/edit","auth/testPage"]
         // guest:["auth", "auth/authPage", "auth/authPage/visit"]
-        //console.log(permissions);
-        if (process.env.NODE_ENV === 'production' && !permissions) { // 线上环境，没有登录权限,重定向到登录页面
+        // 线上环境，没有登录权限,重定向到登录页面
+        if (process.env.NODE_ENV === 'production' && !permissions) { 
             return <Redirect to={'/login'} />;
         }
-        return permission ? this.requireAuth(permission, component) : component;
-    };
+        // 开发环境
+        if(permission){
+            if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;
+        }else{
+            return component;
+        }
+     };
     render() {
         return (
             <Switch>
@@ -59,6 +68,7 @@ export default class CRouter extends Component {
                             // 定义route函数,进行<route />组件相关数据的整理。
                             const route = r => {
                                 const Component = AllComponents[r.component]; // 在循环的过程中，通过路由组件的匹配
+                                //console.log(Component)
                                 return (
                                     <Route
                                         key={r.route || r.key}
@@ -103,7 +113,6 @@ export default class CRouter extends Component {
                         })
                     )
                 }
-
                 <Route render={() => <Redirect to="/404" />} />
             </Switch>
         )

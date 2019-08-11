@@ -3,8 +3,10 @@
  *  <Menu {...props}>
         {item.subs ? renderSubMenu(item) : renderMenuItem(item)}
     </Menu>
- * 主要是通过item.sub来判断是否有2级菜单，并进行相应的方法加载；
+  主要是通过item.sub来判断是否有2级菜单，并进行相应的方法加载；
   {item.subs.map(item => renderMenuItem(item))}，如果有2级菜单的数据，再通过map循环1级菜单方法。
+
+  2.react-beautiful-dnd：拖拽插件的学习
  * 
  * 
  */

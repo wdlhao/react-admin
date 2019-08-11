@@ -1,9 +1,12 @@
 /**
- * Created by hao.cheng on 2017/4/16.
+ 1.axios封装流程：
+
+  
+  
  */
 import axios from 'axios';
-import { get, post } from './tools';
-import * as config from './config';
+import { get, post } from './tools'; //默认请求方式的封装
+import * as config from './config';// 全局的配置路径等;
 
 export const getBbcNews = () => get({ url: config.NEWS_BBC });
 

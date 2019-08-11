@@ -3,6 +3,8 @@
  * 1.Redirect,push??
  * 包括通用路由，如：path="/",path="/login",path="/404" 和其他路由生成入口App组件
  * 
+ * 2.项目启动时，根据path="/",是默认定位到index;
+ * 
  * 
  */
 import React from 'react';
