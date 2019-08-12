@@ -6,7 +6,9 @@
     MenuItemGroup:默认是做了隐藏处理的，鼠标放上去才会显示。
 
   2.Popover，气泡卡片
-
+  
+  3.理解：withRouter 
+    编程式导航，当组件渲染时，withRouter 会将更新后的 match、location 和 history 传递给它。
 
 
 
@@ -27,12 +29,13 @@ const MenuItemGroup = Menu.ItemGroup;
 
 class HeaderCustom extends Component {
     state = {
-        // user: '',
+        user: '',
         visible: false,
     };
     componentDidMount() {
         const QueryString = queryString();
         const _user = JSON.parse(localStorage.getItem('user')) || '测试';
+        console.log(_user);
         if (!_user && QueryString.hasOwnProperty('code')) { // 多余的判断
             gitOauthToken(QueryString.code).then(res => {
                 gitOauthInfo(res.access_token).then(info => {
@@ -107,7 +110,7 @@ class HeaderCustom extends Component {
                     </Menu.Item>
                     <SubMenu title={<span className="avatar"><img src={avater} alt="头像" /><i className="on bottom b-white" /></span>}>
                         <MenuItemGroup title="用户中心">
-                            <Menu.Item key="setting:1">你好 - {auth.data.userName}</Menu.Item>
+                            {/* <Menu.Item key="setting:1">你好 - {auth.data.userName}</Menu.Item> */}
                             <Menu.Item key="setting:2">个人信息</Menu.Item>
                             <Menu.Item key="logout"><span onClick={this.logout}>退出登录</span></Menu.Item>
                         </MenuItemGroup>

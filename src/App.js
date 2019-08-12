@@ -9,7 +9,11 @@
     import {AlitaProvider, connectAlita,setConfig } from "redux-alita";
 
    3.antd中Layout组件通过flex布局,实现了页面自适应，导入使用即可。
-   Routes auth={auth} />，直接显示路由视图位置。
+     import { Layout } from "antd";
+     const { Header,Footer,Sider,Content } from "Layout";
+
+    4.Routes auth={auth} />，路由页面渲染入口
+     理解：用户登录之后，通过Page.js中path="/app"已经将路由信息加载完成；定位到其他页面时，直接显示路由视图。
 
  * 
  * 

@@ -1,7 +1,18 @@
 /**
  * Created by hao.cheng on 2017/4/13.
- * 1.withRouter:适用于编程式导航。当组件渲染时，withRouter 会将更新后的 match、location 和 history 传递给它。
- */
+  左侧路由渲染逻辑：
+  依托于路由config配置文件，进行路由dom渲染;
+
+
+  1.withRouter:适用于编程式导航。当组件渲染时，withRouter 会将更新后的 match、location 和 history 传递给它。
+  2.static setMenuOpen = props => {}:
+ 
+ 
+ 
+ 
+ 
+ 
+  */
 import React, { Component } from 'react';
 import { Layout } from 'antd';
 import { withRouter } from 'react-router-dom';
@@ -75,11 +86,12 @@ class SiderCustom extends Component {
                 <div className="logo" />
                 {/**
                   SiderMenu属性分析：
-                  1.menus:为传入组件内部的参数
+                  1.menus:为传入组件内部的参数,arr形式;
                   2.mode：表示菜单排列方向，值分别为"inline/horizontal",表示该菜单排列分布或者横向排列;
                   3.selectedKeys:如SelectedKeys={['1']}，表示默认选中的菜单项;
                   4.openKeys:如，OpenKeys={['sub1']}，表示默认打开的菜单项;
-                  5.onOpenChange
+                  5.onOpenChange:SubMenu 展开/关闭的回调 function(openKeys: string[])
+                  6.onClick:点击 MenuItem 调用此函数 function({ item, key, keyPath, domEvent })
                 */}
                 <SiderMenu
                     menus={routes.menus}
